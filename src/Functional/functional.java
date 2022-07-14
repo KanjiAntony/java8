@@ -1,7 +1,9 @@
 package Functional;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class functional {
 
@@ -47,6 +49,25 @@ public class functional {
         System.out.println("Double and cube result: "+doubleIt.andThen(cubeIt).apply(2));
 
         System.out.println("Cube and double result: "+doubleIt.compose(cubeIt).apply(2)); */
+
+        System.out.println("---- Supplier ----");
+
+        /*
+            * this is a function interface used to return a value.
+            * in the form Supplier<T>, and returns value using abstract method T get().
+        Supplier<String> supplier = () -> "Kenya";
+
+        System.out.println("From supplier is: "+supplier.get()); */
+
+        System.out.println("---- Consumer ----");
+
+        /*
+            * functional interface used to accept any data and processes data
+        Consumer<Integer> consumer = (x) -> {
+            System.out.println("Consumed "+x*10);
+        } ;
+
+        consumer.accept(10); */
 
     }
 }
