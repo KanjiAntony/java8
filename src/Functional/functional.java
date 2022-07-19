@@ -69,5 +69,7 @@ public class functional {
 
         consumer.accept(10); */
 
+
+
     }
 }
