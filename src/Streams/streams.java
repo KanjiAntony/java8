@@ -1,9 +1,11 @@
 package Streams;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class streams {
 
@@ -18,6 +20,7 @@ public class streams {
         number_list.add(50);
         number_list.add(100);
         number_list.add(100);
+
 
         //number_list.stream().filter(x -> x%2 == 0).forEach(x -> System.out.println(x));
 
@@ -45,5 +48,22 @@ public class streams {
 //        for(Object num : num_list_obj) {
 //            System.out.println(num);
 //        }
+
+        List<User> users_list = Stream.of(
+                new User(1L,"Kanji", Arrays.asList("kanjianto@gmail.com","kanjiantonio@gmail.com")),
+                new User(2L,"Martin", Arrays.asList("martin@gmail.com","martin@yahoo.com"))
+        ).collect(Collectors.toList());
+
+        List<String> collected_names = users_list.stream().map(x -> x.getName()).collect(Collectors.toList());
+
+        List<List<String>> mapped_emails = users_list.stream().map(User::getEmail).collect(Collectors.toList());
+
+        System.out.println(mapped_emails);
+
+        //use of flatmap
+        List<String> flat_mapped_emails = users_list.stream().flatMap(u -> u.getEmail().stream()).collect(Collectors.toList());
+
+        System.out.println(flat_mapped_emails);
+
     }
 }
