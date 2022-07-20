@@ -1,6 +1,7 @@
 package Streams;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -48,8 +49,8 @@ public class streams {
 //        }
 
         List<User> users_list = Stream.of(
-                new User(1L,"Kanji", Arrays.asList("kanjianto@gmail.com","kanjiantonio@gmail.com")),
-                new User(2L,"Martin", Arrays.asList("martin@gmail.com","martin@yahoo.com"))
+                new User(1L,"Kanji",3, Arrays.asList("kanjianto@gmail.com","kanjiantonio@gmail.com")),
+                new User(2L,"Martin",5, Arrays.asList("martin@gmail.com","martin@yahoo.com"))
         ).collect(Collectors.toList());
 
         List<String> collected_names = users_list.stream().map(x -> x.getName()).collect(Collectors.toList());
@@ -67,6 +68,10 @@ public class streams {
 
         charOccurenceDSAlgo();
         charOccurence();
+
+        System.out.println("------------------------------");
+
+        highestCars(users_list);
 
     }
 
@@ -108,6 +113,20 @@ public class streams {
                 );
 
         System.out.println("Result map using java 8 : "+result_map);
+
+    }
+
+    static void highestCars(List<User> users_list ) {
+
+        User user_cars = users_list.stream()
+                .collect(
+                        Collectors.collectingAndThen(
+                                Collectors.maxBy(Comparator.comparingDouble(User::getCars)),
+                                Optional::get
+                        )
+                );
+
+        System.out.println(user_cars.toString());
 
     }
 }
