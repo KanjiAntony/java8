@@ -1,9 +1,7 @@
 package Streams;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -64,6 +62,52 @@ public class streams {
         List<String> flat_mapped_emails = users_list.stream().flatMap(u -> u.getEmail().stream()).collect(Collectors.toList());
 
         System.out.println(flat_mapped_emails);
+
+        System.out.println("------------------------------");
+
+        charOccurenceDSAlgo();
+        charOccurence();
+
+    }
+
+    // this is a sample of how it can be done using sets, maps and for loop resulting in a time complexity of O(n)
+    static void charOccurenceDSAlgo() {
+
+        String name = "Kanjiii".toLowerCase();
+        Set<Character> result_set = new HashSet<>();
+        Map<Character,Integer> result_map = new HashMap<>();
+
+        for (int i = 0; i < name.length(); i++) {
+
+            //int initial = 1+i;
+
+            if(!result_set.contains(name.charAt(i))) {
+                result_set.add(name.charAt(i));
+                result_map.put(name.charAt(i),1);
+            } else {
+                int initial = result_map.get(name.charAt(i));
+                result_map.put(name.charAt(i),initial+1);
+            }
+
+        }
+
+        System.out.println("Result map using sets : "+result_map);
+
+    }
+
+    // how to use java 8 streams
+    static void charOccurence() {
+
+        String name = "Kaanji";
+
+        Map<String, Long> result_map = Arrays.stream(name.split(""))
+                .collect(
+                        Collectors.groupingBy(
+                                Function.identity(), Collectors.counting()
+                        )
+                );
+
+        System.out.println("Result map using java 8 : "+result_map);
 
     }
 }
